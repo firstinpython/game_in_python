@@ -23,7 +23,7 @@ class Game:
         self.background_image, self.ghost_image, self.knight_image, self.knight_image2, self.knight_image3, self.knight_image4, self.knight_image5, self.knight_image6, self.money_image, self.main_run = image()
         self.defaultknight = self.knight_image
         back_sound().play()
-        self.run_sprite, self.sprites_counter, self.background_x, self.player_x, self.player_y, self.ghost_x, self.is_jump, self.jump_count, self.ghost_list, self.money_list, self.money_x, self.result, self.knight_list, self.run, self.game, self.km, self.zabor, self.ghost_speed, self.score_flag, self.is_buy, self.no_money, self.is_knight = init_connect()
+        self.run_sprite, self.sprites_counter, self.background_x, self.player_x, self.player_y, self.ghost_x, self.is_jump, self.jump_count, self.ghost_list, self.money_list, self.money_x, self.result, self.knight_list, self.run, self.game, self.km, self.zabor, self.ghost_speed, self.score_flag, self.is_buy, self.no_money, self.is_knight,self.name_knight = init_connect()
         self.ghost_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.ghost_timer, 5000)
         self.money_timer = pygame.USEREVENT + 2
@@ -80,21 +80,21 @@ class Game:
 
                 if label_back_rect.collidepoint(self.mouse) and pygame.mouse.get_pressed()[0]:
                     self.game = 3
-                self.base, self.defaultknight, self.is_knight, self.screen, self.is_buy, self.no_money = arsenal(
+                self.base, self.defaultknight, self.is_knight, self.screen, self.is_buy, self.no_money,self.name_knight = arsenal(
                     self.label_skin_1, self.mouse, self.base, self.defaultknight, self.knight_image, self.is_knight,
                     self.label_skin_2, self.knight_image2, self.label_skin_3, self.knight_image3, self.label_skin_4,
-                    self.knight_image4, self.label_skin_5, self.knight_image5, self.screen, self.is_buy, self.no_money)
+                    self.knight_image4, self.label_skin_5, self.knight_image5, self.screen, self.is_buy, self.no_money,self.name_knight)
 
                 if self.is_buy:
-                    buy_arsenal(self.label_knight, self.screen)
+                    buy_arsenal(self.label_knight, self.screen,self.name_knight)
                     self.no_money = False
                     self.is_knight = False
                 if self.no_money:
-                    money_arsenal(self.label_knight, self.screen)
+                    money_arsenal(self.label_knight, self.screen,self.name_knight)
                     self.is_buy = False
                     self.is_knight = False
                 if self.is_knight:
-                    knight_arsenal(self.label_knight, self.screen)
+                    knight_arsenal(self.label_knight, self.screen,self.name_knight)
                     self.is_buy = False
                     self.no_money = False
             pygame.display.update()

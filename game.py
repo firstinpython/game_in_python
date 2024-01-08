@@ -68,7 +68,7 @@ def lose_label(game, knight_list, money_list, screen, lose_label, menu_label, ba
 
 
 def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, label_skin_2, knight_image2,
-            label_skin_3, knight_image3, label_skin_4, knight_image4, label_skin_5, knight_image5,screen, is_buy, no_money):
+            label_skin_3, knight_image3, label_skin_4, knight_image4, label_skin_5, knight_image5,screen, is_buy, no_money,name_knight):
     label = pygame.font.Font('RubikDoodleShadow-Regular.ttf', 40)
     label_skin_1_rect = label_skin_1.get_rect(topleft=(300, 350))
     label_skin_2_rect = label_skin_2.get_rect(topleft=(450, 350))
@@ -77,6 +77,7 @@ def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, la
     label_skin_5_rect = label_skin_5.get_rect(topleft=(900, 350))
     if label_skin_1_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
         skin = 'skin_1'
+        name_knight = 'алмазный меч'
         a = base.buy(skin)
         if int(a) == 1:
             is_buy = True
@@ -89,6 +90,7 @@ def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, la
             is_knight = True
     elif label_skin_2_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
         skin = 'skin_2'
+        name_knight = 'древесный нож'
         a = base.buy(skin)
         if int(a) == 1:
             is_buy = True
@@ -101,6 +103,7 @@ def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, la
             is_knight = True
     elif label_skin_3_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
         skin = 'skin_3'
+        name_knight = 'золотой меч'
         a = base.buy(skin)
         if int(a) == 1:
             is_buy = True
@@ -113,6 +116,7 @@ def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, la
             is_knight = True
     elif label_skin_4_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
         skin = 'skin_4'
+        name_knight = 'демонический меч'
         a = base.buy(skin)
         if int(a) == 1:
             is_buy = True
@@ -125,6 +129,7 @@ def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, la
             is_knight = True
     elif label_skin_5_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
         skin = 'skin_5'
+        name_knight = 'синий меч'
         a = base.buy(skin)
         if int(a) == 1:
             is_buy = True
@@ -135,4 +140,4 @@ def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, la
             base.skins('skin_5', what_skin)
             defaultknight = knight_image5
             is_knight = True
-    return base, defaultknight, is_knight, screen, is_buy, no_money
+    return base, defaultknight, is_knight, screen, is_buy, no_money,name_knight

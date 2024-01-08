@@ -52,4 +52,5 @@ def init_connect():
     is_buy = False
     no_money = False
     is_knight = False
-    return run_sprite,sprites_counter,background_x,player_x,player_y,ghost_x,is_jump,jump_count,ghost_list,money_list,money_x,result,knight_list,run,game,km,zabor,ghost_speed,score_flag,is_buy,no_money,is_knight
+    name_knight = ''
+    return run_sprite,sprites_counter,background_x,player_x,player_y,ghost_x,is_jump,jump_count,ghost_list,money_list,money_x,result,knight_list,run,game,km,zabor,ghost_speed,score_flag,is_buy,no_money,is_knight,name_knight
