@@ -8,7 +8,7 @@ from knight import knight
 from menu import menu
 from proverka import buy_arsenal, money_arsenal, knight_arsenal
 from game_screen import game_1_screen
-from game import gameplay, lose_label, arsenal
+from game import gameplay, lose_label_func, arsenal
 from connect import connect, image, init_connect
 
 
@@ -21,9 +21,11 @@ class Game:
         pygame.display.set_icon(pygame.image.load('image/run/run_1.png'))
         self.clock = pygame.time.Clock()
         self.background_image, self.ghost_image, self.knight_image, self.knight_image2, self.knight_image3, self.knight_image4, self.knight_image5, self.knight_image6, self.money_image, self.main_run = image()
-        self.defaultknight = self.base.proverka(self.knight_image,self.knight_image2,self.knight_image3,self.knight_image4,self.knight_image5)[1]
+        self.defaultknight = \
+            self.base.proverka(self.knight_image, self.knight_image2, self.knight_image3, self.knight_image4,
+                               self.knight_image5)[1]
         back_sound().play()
-        self.run_sprite, self.sprites_counter, self.background_x, self.player_x, self.player_y, self.ghost_x, self.is_jump, self.jump_count, self.ghost_list, self.money_list, self.money_x, self.result, self.knight_list, self.run, self.game, self.km, self.zabor, self.ghost_speed, self.score_flag, self.is_buy, self.no_money, self.is_knight,self.name_knight = init_connect()
+        self.run_sprite, self.sprites_counter, self.background_x, self.player_x, self.player_y, self.ghost_x, self.is_jump, self.jump_count, self.ghost_list, self.money_list, self.money_x, self.result, self.knight_list, self.run, self.game, self.km, self.zabor, self.ghost_speed, self.score_flag, self.is_buy, self.no_money, self.is_knight, self.name_knight = init_connect()
         self.ghost_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.ghost_timer, 5000)
         self.money_timer = pygame.USEREVENT + 2
@@ -37,7 +39,7 @@ class Game:
             label_play_rect = self.label_play.get_rect(topleft=(500, 200))
             self.lose_label_rect = self.lose_label.get_rect(topleft=(500, 250))
             self.menu_label_rect = self.menu_label.get_rect(topleft=(500, 350))
-            label_arsenal_rect = self.label_arsenal.get_rect(topleft=(465, 350))
+            label_arsenal_rect = self.label_arsenal.get_rect(topleft=(700, 200))
             label_back_rect = self.label_back.get_rect(topleft=(100, 500))
             self.label_result = self.label_knight.render(str(self.result), False, (193, 196, 199))
             if self.game == 3:
@@ -47,26 +49,29 @@ class Game:
                 self.no_money = menu_main[1]
                 self.is_knight = menu_main[2]
                 self.score_flag = menu_main[3]
-                print(self.is_buy,self.no_money,self.is_knight)
             self.mouse = pygame.mouse.get_pos()
             if label_play_rect.collidepoint(self.mouse) and pygame.mouse.get_pressed()[0] and self.game == 3:
                 self.game = 0
                 self.player_x = 300
                 self.ghost_list.clear()
-            (self.game, self.km, self.result, self.screen, self.background_image, self.background_x, self.run_sprite,
-             self.sprites_counter, self.player_x, self.player_y, self.label_result, self.zabor, self.ghost_speed,
-             self.ghost_list, self.ghost_image, self.money_list, self.money_image, self.is_jump, self.jump_count,
-             self.knight_list, self.defaultknight) = gameplay(
-                self.game, self.km, self.result, self.screen, self.background_image, self.background_x, self.run_sprite,
-                self.sprites_counter, self.player_x, self.player_y, self.label_result, self.zabor, self.ghost_speed,
-                ghost_func,
-                self.ghost_list, self.ghost_image,
-                money, self.money_list,
-                self.money_image, self.base, player_walking_x,
-                player_jumping_y, self.is_jump, self.jump_count,
-                knight, self.knight_list,
-                self.defaultknight)
-            self.game, self.knight_list, self.money_list, self.screen, self.lose_label, self.menu_label, self.result, self.label, self.lose_label_rect, self.ghost_list, self.menu_label_rect, self.ghost_speed, self.player_x, self.score_flag = lose_label(
+            if self.game == 0:
+                (
+                    self.game, self.km, self.result, self.screen, self.background_image, self.background_x,
+                    self.run_sprite,
+                    self.sprites_counter, self.player_x, self.player_y, self.label_result, self.zabor, self.ghost_speed,
+                    self.ghost_list, self.ghost_image, self.money_list, self.money_image, self.is_jump, self.jump_count,
+                    self.knight_list, self.defaultknight) = gameplay(
+                    self.game, self.km, self.result, self.screen, self.background_image, self.background_x,
+                    self.run_sprite,
+                    self.sprites_counter, self.player_x, self.player_y, self.label_result, self.zabor, self.ghost_speed,
+                    ghost_func,
+                    self.ghost_list, self.ghost_image,
+                    money, self.money_list,
+                    self.money_image, self.base, player_walking_x,
+                    player_jumping_y, self.is_jump, self.jump_count,
+                    knight, self.knight_list,
+                    self.defaultknight)
+            self.game, self.knight_list, self.money_list, self.screen, self.result, self.ghost_list, self.ghost_speed, self.player_x, self.score_flag = lose_label_func(
                 self.game, self.knight_list, self.money_list, self.screen, self.lose_label, self.menu_label, self.base,
                 self.result, self.label, self.lose_label_rect, self.ghost_list, self.mouse, self.menu_label_rect,
                 self.ghost_speed, self.player_x, self.score_flag)
@@ -81,30 +86,24 @@ class Game:
 
                 if label_back_rect.collidepoint(self.mouse) and pygame.mouse.get_pressed()[0]:
                     self.game = 3
-                #print('сработал арсенал')
-                self.base, self.defaultknight, self.is_knight, self.screen, self.is_buy, self.no_money,self.name_knight = arsenal(
-                    self.label_skin_1,self.base, self.defaultknight, self.knight_image, self.is_knight,
+                self.base, self.defaultknight, self.is_knight, self.screen, self.is_buy, self.no_money, self.name_knight = arsenal(
+                    self.label_skin_1, self.base, self.defaultknight, self.knight_image, self.is_knight,
                     self.label_skin_2, self.knight_image2, self.label_skin_3, self.knight_image3, self.label_skin_4,
-                    self.knight_image4, self.label_skin_5, self.knight_image5, self.screen, self.is_buy, self.no_money,self.name_knight,self.game)
+                    self.knight_image4, self.label_skin_5, self.knight_image5, self.screen, self.is_buy, self.no_money,
+                    self.name_knight, self.game)
 
                 if self.is_buy == True:
-                    buy_arsenal(self.label_knight, self.screen,self.name_knight)
+                    buy_arsenal(self.label_knight, self.screen, self.name_knight)
                     self.no_money = False
                     self.is_knight = False
-
-                    #print(f'is_buy: {self.no_money} {self.is_knight}')
                 if self.no_money == True:
-                    money_arsenal(self.label_knight, self.screen,self.name_knight)
+                    money_arsenal(self.label_knight, self.screen, self.name_knight)
                     self.is_buy = False
                     self.is_knight = False
-
-                    #print(f'no_money: {self.is_buy} {self.is_knight}')
-                if self.is_knight ==True:
-                    knight_arsenal(self.label_knight, self.screen,self.name_knight)
+                if self.is_knight == True:
+                    knight_arsenal(self.label_knight, self.screen, self.name_knight)
                     self.is_buy = False
                     self.no_money = False
-
-                    #print(f'is_knight: {self.is_buy} {self.is_knight}')
 
             pygame.display.update()
             for event in pygame.event.get():
