@@ -52,7 +52,7 @@ def lose_label(game, knight_list, money_list, screen, lose_label, menu_label, ba
 
         if score_flag == True:
             label_score = label.render(f'Your score {result}', False, (193, 196, 199))
-            screen.blit(label_score, (500, 500))
+            screen.blit(label_score, (350, 100))
 
         if lose_label_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
             game = 0
@@ -67,77 +67,90 @@ def lose_label(game, knight_list, money_list, screen, lose_label, menu_label, ba
     return game, knight_list, money_list, screen, lose_label, menu_label, result, label, lose_label_rect, ghost_list, menu_label_rect, bistree, player_x, score_flag
 
 
-def arsenal(label_skin_1,mouse, base, defaultknight, knight_image, is_knight, label_skin_2, knight_image2,
-            label_skin_3, knight_image3, label_skin_4, knight_image4, label_skin_5, knight_image5,screen, is_buy, no_money,name_knight):
+def arsenal(label_skin_1,base, defaultknight, knight_image, is_knight, label_skin_2, knight_image2,
+            label_skin_3, knight_image3, label_skin_4, knight_image4, label_skin_5, knight_image5,screen, is_buy, no_money,name_knight,game):
     label = pygame.font.Font('RubikDoodleShadow-Regular.ttf', 40)
     label_skin_1_rect = label_skin_1.get_rect(topleft=(300, 350))
     label_skin_2_rect = label_skin_2.get_rect(topleft=(450, 350))
     label_skin_3_rect = label_skin_3.get_rect(topleft=(600, 350))
     label_skin_4_rect = label_skin_4.get_rect(topleft=(750, 350))
     label_skin_5_rect = label_skin_5.get_rect(topleft=(900, 350))
-    if label_skin_1_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-        skin = 'skin_1'
-        name_knight = 'алмазный меч'
-        a = base.buy(skin)
-        if int(a) == 1:
-            is_buy = True
-        elif int(a) == 2:
-            no_money = True
-        elif int(a) == 3:
-            what_skin = base.proverka()
-            base.skins('skin_1', what_skin)
-            defaultknight = knight_image
-            is_knight = True
-    elif label_skin_2_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-        skin = 'skin_2'
-        name_knight = 'древесный нож'
-        a = base.buy(skin)
-        if int(a) == 1:
-            is_buy = True
-        elif int(a) == 2:
-            no_money = True
-        elif int(a) == 3:
-            what_skin = base.proverka()
-            base.skins('skin_2', what_skin)
-            defaultknight = knight_image2
-            is_knight = True
-    elif label_skin_3_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-        skin = 'skin_3'
-        name_knight = 'золотой меч'
-        a = base.buy(skin)
-        if int(a) == 1:
-            is_buy = True
-        elif int(a) == 2:
-            no_money = True
-        elif int(a) == 3:
-            what_skin = base.proverka()
-            base.skins('skin_3', what_skin)
-            defaultknight = knight_image3
-            is_knight = True
-    elif label_skin_4_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-        skin = 'skin_4'
-        name_knight = 'демонический меч'
-        a = base.buy(skin)
-        if int(a) == 1:
-            is_buy = True
-        elif int(a) == 2:
-            no_money = True
-        elif int(a) == 3:
-            what_skin = base.proverka()
-            base.skins('skin_4', what_skin)
-            defaultknight = knight_image4
-            is_knight = True
-    elif label_skin_5_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
-        skin = 'skin_5'
-        name_knight = 'синий меч'
-        a = base.buy(skin)
-        if int(a) == 1:
-            is_buy = True
-        elif int(a) == 2:
-            no_money = True
-        elif int(a) == 3:
-            what_skin = base.proverka()
-            base.skins('skin_5', what_skin)
-            defaultknight = knight_image5
-            is_knight = True
+    mouse = pygame.mouse.get_pos()
+    if game == 1:
+        if label_skin_1_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+            skin = 'skin_1'
+            name_knight = 'алмазный меч'
+            a = base.buy(skin)
+            if int(a) == 1:
+                is_buy = True
+            elif int(a) == 2:
+                no_money = True
+            elif int(a) == 3:
+                what_skin = base.proverka(knight_image,knight_image2,knight_image3,knight_image4,knight_image5)[0]
+                if what_skin!='skin_1':
+                    base.skins('skin_1', what_skin)
+                    defaultknight = knight_image
+                    print('алмазный меч', what_skin)
+                    is_knight = True
+        elif label_skin_2_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+            skin = 'skin_2'
+            name_knight = 'древесный нож'
+            a = base.buy(skin)
+            if int(a) == 1:
+                is_buy = True
+            elif int(a) == 2:
+                no_money = True
+            elif int(a) == 3:
+                what_skin = base.proverka(knight_image,knight_image2,knight_image3,knight_image4,knight_image5)[0]
+                print('древесный нож',what_skin)
+                if what_skin != 'skin_2':
+                    base.skins('skin_2', what_skin)
+                    defaultknight = knight_image2
+                    is_knight = True
+        elif label_skin_3_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+            skin = 'skin_3'
+            name_knight = 'золотой меч'
+            a = base.buy(skin)
+            if int(a) == 1:
+                is_buy = True
+            elif int(a) == 2:
+                no_money = True
+            elif int(a) == 3:
+                what_skin = base.proverka(knight_image,knight_image2,knight_image3,knight_image4,knight_image5)[0]
+                print('золотой меч', what_skin)
+                if what_skin!='skin_3':
+                    base.skins('skin_3', what_skin)
+                    defaultknight = knight_image3
+                    is_knight = True
+
+        elif label_skin_4_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+            skin = 'skin_4'
+            name_knight = 'демонический меч'
+            a = base.buy(skin)
+            if int(a) == 1:
+                is_buy = True
+            elif int(a) == 2:
+                no_money = True
+            elif int(a) == 3:
+                what_skin = base.proverka(knight_image,knight_image2,knight_image3,knight_image4,knight_image5)[0]
+                print("демонический меч", what_skin)
+                if what_skin!='skin_4':
+                    base.skins('skin_4', what_skin)
+                    defaultknight = knight_image4
+                    is_knight = True
+        elif label_skin_5_rect.collidepoint(mouse) and pygame.mouse.get_pressed()[0]:
+            skin = 'skin_5'
+            name_knight = 'синий меч'
+            a = base.buy(skin)
+            if int(a) == 1:
+                is_buy = True
+            elif int(a) == 2:
+                no_money = True
+            elif int(a) == 3:
+                what_skin = base.proverka(knight_image,knight_image2,knight_image3,knight_image4,knight_image5)[0]
+                if what_skin!='skin_5':
+                    base.skins('skin_5', what_skin)
+                    defaultknight = knight_image5
+                    is_knight = True
+        #print(is_buy,no_money,is_knight)
     return base, defaultknight, is_knight, screen, is_buy, no_money,name_knight

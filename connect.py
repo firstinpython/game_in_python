@@ -4,7 +4,7 @@ from run_sprites import sprites
 def connect():
     label = pygame.font.Font('RubikDoodleShadow-Regular.ttf', 60)
     label_knight = pygame.font.Font('RubikDoodleShadow-Regular.ttf', 40)
-    lose_label = label.render('Lose', False, (193, 196, 199))
+    lose_label = label.render('Restart', False, (193, 196, 199))
     menu_label = label.render('Menu', False, (193, 196, 199))
     label_play = label.render('PLAY', False, (193, 196, 199))
     label_skin_1 = label_knight.render('Skin_1', False, (193, 196, 199))

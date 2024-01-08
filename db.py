@@ -49,15 +49,15 @@ class Base:
 
 
 
-    def proverka(self):
+    def proverka(self,knight_image,knight_image2,knight_image3,knight_image4,knight_image5):
         with self.connection:
             if int(self.cur.execute('SELECT skin_1 FROM play').fetchone()[0]) == 2:
-                return 'skin_1'
+                return 'skin_1',knight_image
             elif int(self.cur.execute('SELECT skin_2 FROM play').fetchone()[0]) == 2:
-                return 'skin_2'
+                return 'skin_2',knight_image2
             elif int(self.cur.execute('SELECT skin_3 FROM play').fetchone()[0]) == 2:
-                return 'skin_3'
+                return 'skin_3',knight_image3
             elif int(self.cur.execute('SELECT skin_4 FROM play').fetchone()[0]) == 2:
-                return 'skin_4'
+                return 'skin_4',knight_image4
             elif int(self.cur.execute('SELECT skin_5 FROM play').fetchone()[0]) == 2:
-                return 'skin_5'
+                return 'skin_5',knight_image5
