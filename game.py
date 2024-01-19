@@ -2,8 +2,9 @@ import pygame
 
 
 def gameplay(game, km, result, screen, background_image, background_x, run_sprite, sprites_counter, player_x, player_y,
-             label_result, zabor, faster, ghost_func, ghost_list, ghost_image, money, money_list, money_image, base,
-             player_walking_x, player_jumping_y, is_jump, jump_count, knight, knight_list, defaultknight):
+             label_result, stop, faster, ghost_func, ghost_list, ghost_image, money, money_list, money_image, base,
+             player_walking_x, player_jumping_y, is_jump, jump_count, knight, knight_list, defaultknight,cnt,level):
+
     if game == 0:
         km += 1
         result += 1
@@ -12,9 +13,17 @@ def gameplay(game, km, result, screen, background_image, background_x, run_sprit
         screen.blit(run_sprite[sprites_counter], (player_x, player_y))
         player_rect = run_sprite[0].get_rect(topleft=(player_x, player_y))
         screen.blit(label_result, (100, 100))
-        if result >= zabor:
+        label_level = pygame.font.Font('RubikDoodleShadow-Regular.ttf', 40)
+
+
+        label_level_screen = label_level.render(str(level), False, (193, 196, 199))
+        screen.blit(label_level_screen, (600, 600))
+
+
+        if result >= stop:
             faster += 10
-            zabor += 1000
+            stop += 1000
+            level+=1
         if ghost_func(ghost_list, faster, ghost_image, player_rect, screen) == 2:
             game = 2
         if money(money_list, money_image, player_rect, screen, base) == 100:
@@ -33,7 +42,8 @@ def gameplay(game, km, result, screen, background_image, background_x, run_sprit
             background_x -= 2
         else:
             background_x = 0
-    return game, km, result, screen, background_image, background_x, run_sprite, sprites_counter, player_x, player_y, label_result, zabor, faster, ghost_list, ghost_image, money_list, money_image, is_jump, jump_count, knight_list, defaultknight
+
+    return game, km, result, screen, background_image, background_x, run_sprite, sprites_counter, player_x, player_y, label_result, stop, faster, ghost_list, ghost_image, money_list, money_image, is_jump, jump_count, knight_list, defaultknight,level
 
 
 def lose_label_func(game, knight_list, money_list, screen, lose_label, menu_label, base, result, label, lose_label_rect,

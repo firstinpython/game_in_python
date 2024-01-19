@@ -24,14 +24,15 @@ class Game:
         self.defaultknight = \
             self.base.proverka(self.knight_image, self.knight_image2, self.knight_image3, self.knight_image4,
                                self.knight_image5)[1]
-        back_sound().play()
+        #back_sound().play()
         self.run_sprite, self.sprites_counter, self.background_x, self.player_x, self.player_y, self.ghost_x, self.is_jump, self.jump_count, self.ghost_list, self.money_list, self.money_x, self.result, self.knight_list, self.run, self.game, self.km, self.zabor, self.ghost_speed, self.score_flag, self.is_buy, self.no_money, self.is_knight, self.name_knight = init_connect()
         self.ghost_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.ghost_timer, 5000)
         self.money_timer = pygame.USEREVENT + 2
         pygame.time.set_timer(self.money_timer, 3000)
         self.label, self.label_knight, self.lose_label, self.menu_label, self.label_play, self.label_skin_1, self.label_skin_2, self.label_skin_3, self.label_skin_4, self.label_skin_5, self.label_skin_6, self.label_arsenal, self.label_back = connect()
-
+        self.cnt = 0
+        self.level=1
         self.gaming()
 
     def gaming(self):
@@ -55,12 +56,13 @@ class Game:
                 self.player_x = 300
                 self.ghost_list.clear()
             if self.game == 0:
+
                 (
                     self.game, self.km, self.result, self.screen, self.background_image, self.background_x,
                     self.run_sprite,
                     self.sprites_counter, self.player_x, self.player_y, self.label_result, self.zabor, self.ghost_speed,
                     self.ghost_list, self.ghost_image, self.money_list, self.money_image, self.is_jump, self.jump_count,
-                    self.knight_list, self.defaultknight) = gameplay(
+                    self.knight_list, self.defaultknight,self.level) = gameplay(
                     self.game, self.km, self.result, self.screen, self.background_image, self.background_x,
                     self.run_sprite,
                     self.sprites_counter, self.player_x, self.player_y, self.label_result, self.zabor, self.ghost_speed,
@@ -70,7 +72,7 @@ class Game:
                     self.money_image, self.base, player_walking_x,
                     player_jumping_y, self.is_jump, self.jump_count,
                     knight, self.knight_list,
-                    self.defaultknight)
+                    self.defaultknight,self.cnt,self.level)
             self.game, self.knight_list, self.money_list, self.screen, self.result, self.ghost_list, self.ghost_speed, self.player_x, self.score_flag = lose_label_func(
                 self.game, self.knight_list, self.money_list, self.screen, self.lose_label, self.menu_label, self.base,
                 self.result, self.label, self.lose_label_rect, self.ghost_list, self.mouse, self.menu_label_rect,
